@@ -14,8 +14,11 @@ var vt100exc = regexp.MustCompile(`^\033(\[[^a-zA-Z0-9@\?]+|[\(\)]).`)
 var vt100long = regexp.MustCompile(`^\033](\d+);([^\033]+)\033\\`)
 
 func Clean(line string, color bool) string {
-	var edit = newLineEdit(len(line))
-	lineb := []byte(line)
+	return string(CleanBytes([]byte(line), color))
+}
+
+func CleanBytes(lineb []byte, color bool) []byte {
+	var edit = newLineEdit(len(lineb))
 
 	hadColor := false
 	for i := 0; i < len(lineb); {
@@ -84,5 +87,6 @@ func Clean(line string, color bool) string {
 	if hadColor {
 		out = append(out, []byte("\033[0m")...)
 	}
-	return string(out)
+
+	return out
 }
