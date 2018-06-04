@@ -91,3 +91,16 @@ func (w *writer) Close() error {
 	_, err := w.Writer.Write([]byte(cl))
 	return err
 }
+
+type unbufferedWriter struct {
+	io.Writer
+	color bool
+}
+
+func NewUnbufferedWriter(w io.Writer, color bool) io.Writer {
+	return &unbufferedWriter{Writer: w, color: color}
+}
+
+func (w unbufferedWriter) Write(p []byte) (int, error) {
+	return w.Writer.Write(CleanBytes(p, w.color))
+}
