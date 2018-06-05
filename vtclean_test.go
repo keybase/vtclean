@@ -50,6 +50,10 @@ var tests = map[string]string{
 
 	// strip carriage return
 	"bbb\raaa": "bbbaaa",
+
+	// non ASCII chars
+	"⌘":     "⌘",
+	"⌘a\n⌘": "⌘a\n⌘",
 }
 
 var colorTests = map[string]string{
