@@ -43,6 +43,13 @@ var tests = map[string]string{
 
 	"bbb \033]4;1;rgb:38/54/71\033\\test": "bbb test",
 	"ccc \033]4;1;rgb:38/54/71test":       "ccc rgb:38/54/71test",
+
+	// newline is preserved
+	"bbb\naaa":          "bbb\naaa",
+	"b\naaa\b\b\033[4P": "b\na",
+
+	// strip carriage return
+	"bbb\raaa": "bbbaaa",
 }
 
 var colorTests = map[string]string{
